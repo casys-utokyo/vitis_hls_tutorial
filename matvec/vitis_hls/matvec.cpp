@@ -27,19 +27,22 @@ inline void store_array(dtype *global, dtype *local, unsigned int goffset, unsig
 // top-level function
 void matvec(dtype *mat, dtype *vec, dtype *out,
             unsigned int vec_len, unsigned int out_len) {
-#pragma HLS INTERFACE mode=m_axi port=mat depth=16384 offset=slave bundle=gmem_in0
-#pragma HLS INTERFACE mode=m_axi port=vec depth=16384 offset=slave bundle=gmem_in0
-#pragma HLS INTERFACE mode=m_axi port=out depth=16384 offset=slave bundle=gmem_out0
-#pragma HLS INTERFACE mode=s_axilite port=vec_len
-#pragma HLS INTERFACE mode=s_axilite port=out_len
 #pragma HLS INTERFACE mode=s_axilite port=return bundle=control
+#pragma HLS INTERFACE mode=s_axilite port=vec_len bundle=control
+#pragma HLS INTERFACE mode=s_axilite port=out_len bundle=control
+#pragma HLS INTERFACE mode=m_axi port=mat depth=16384 offset=slave bundle=gmem_in0
+#pragma HLS INTERFACE mode=s_axilite port=mat bundle=control
+#pragma HLS INTERFACE mode=m_axi port=vec depth=16384 offset=slave bundle=gmem_in0
+#pragma HLS INTERFACE mode=s_axilite port=vec bundle=control
+#pragma HLS INTERFACE mode=m_axi port=out depth=16384 offset=slave bundle=gmem_out0
+#pragma HLS INTERFACE mode=s_axilite port=out bundle=control
 
   dtype mat_buf [MAX_LEN];
   dtype vec_buf [MAX_LEN];
   dtype out_buf [MAX_LEN];
 #pragma HLS ARRAY_PARTITION variable=mat_buf type=cyclic factor=4
 #pragma HLS ARRAY_PARTITION variable=vec_buf type=cyclic factor=4
-#pragma HLS ARRAY_PARTITION variable=out_buf type=cyclic factor=4
+//#pragma HLS ARRAY_PARTITION variable=out_buf type=cyclic factor=4
 
   unsigned int num_comp = out_len;
   if(num_comp >= MAX_LEN) {
