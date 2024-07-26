@@ -45,12 +45,12 @@ ACRiルームのサーバーを用いた演習を想定しているが、ロー�
         - mystream.ipynb: Jupyter Lab上の制御ソフトウェア
         - mystream.bit: 合成済みビットファイル
         - mystream.hwh: 合成済みビットファイルの構成ファイル
+        - raytracing.png: テスト用画像データ
 - matvec: AXI Masterを用いた自立的なデータ入出力
     - vitis_hls
         - matvec.cpp: ハードウェア本体
         - matvec_tb.cpp: Cシミュレーション
         - matvec.h: ハードウェア本体およびCシミュレーションの共通ヘッダー
-        - raytracing.png: テスト用画像データ
     - pynq
         - matvec.ipynb: Jupyter Lab上の制御ソフトウェア
         - matvec.bit: 合成済みビットファイル
